@@ -16,6 +16,8 @@ class CountryPicker(QComboBox):
         super(CountryPicker, self).__init__(parent)
 
         self.countries = countries.copy()
+        self.flag_icons_enabled = True
+
         self.current_country = next(iter(self.countries.keys()))
 
         for country_code, country_name in self.countries.items():
@@ -53,10 +55,34 @@ class CountryPicker(QComboBox):
     def resetCountryNames(self):
         self.clear()
         self.countries = countries.copy()
+
         for country_code, country_name in self.countries.items():
-            self.addItem(
-                QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
-                country_name
-            )
+            if self.icons_enabled:
+                self.addItem(
+                    QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
+                    country_name
+                )
+            else:
+                self.addItem(country_name)
+
+        self.model().sort(self.modelColumn(), Qt.SortOrder.AscendingOrder)
+        self.setCurrentCountry(self.current_country)
+
+    def isFlagIconsEnabled(self) -> bool:
+        return self.icons_enabled
+
+    def setFlagIconsEnabled(self, enabled: bool):
+        self.icons_enabled = enabled
+        self.clear()
+
+        for country_code, country_name in self.countries.items():
+            if self.icons_enabled:
+                self.addItem(
+                    QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
+                    country_name
+                )
+            else:
+                self.addItem(country_name)
+
         self.model().sort(self.modelColumn(), Qt.SortOrder.AscendingOrder)
         self.setCurrentCountry(self.current_country)
