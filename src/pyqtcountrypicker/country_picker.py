@@ -57,7 +57,7 @@ class CountryPicker(QComboBox):
         self.countries = countries.copy()
 
         for country_code, country_name in self.countries.items():
-            if self.icons_enabled:
+            if self.flag_icons_enabled:
                 self.addItem(
                     QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
                     country_name
@@ -69,14 +69,14 @@ class CountryPicker(QComboBox):
         self.setCurrentCountry(self.current_country)
 
     def isFlagIconsEnabled(self) -> bool:
-        return self.icons_enabled
+        return self.flag_icons_enabled
 
     def setFlagIconsEnabled(self, enabled: bool):
-        self.icons_enabled = enabled
+        self.flag_icons_enabled = enabled
         self.clear()
 
         for country_code, country_name in self.countries.items():
-            if self.icons_enabled:
+            if self.flag_icons_enabled:
                 self.addItem(
                     QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
                     country_name
