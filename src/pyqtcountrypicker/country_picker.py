@@ -2,6 +2,7 @@ from qtpy.QtWidgets import QWidget, QComboBox
 from qtpy.QtGui import QIcon
 from qtpy.QtCore import Qt
 from .countries import countries
+from .enums import FilterType
 from .os_utils import OSUtils
 
 
@@ -17,6 +18,8 @@ class CountryPicker(QComboBox):
 
         self.countries = countries.copy()
         self.flag_icons_enabled = True
+        self.filter = None
+        self.filtered_countries = set()
 
         self.current_country = next(iter(self.countries.keys()))
 
@@ -47,35 +50,43 @@ class CountryPicker(QComboBox):
 
     def setCountryNames(self, country_names: dict[str, str]):
         for country_code, country_name in country_names.items():
-            item_index = self.findText(self.countries[country_code])
-            self.setItemText(item_index, country_name)
             self.countries[country_code] = country_name
-        self.model().sort(self.modelColumn(), Qt.SortOrder.AscendingOrder)
+        self.__update_dropdown_items()
 
     def resetCountryNames(self):
-        self.clear()
         self.countries = countries.copy()
-
-        for country_code, country_name in self.countries.items():
-            if self.flag_icons_enabled:
-                self.addItem(
-                    QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
-                    country_name
-                )
-            else:
-                self.addItem(country_name)
-
-        self.model().sort(self.modelColumn(), Qt.SortOrder.AscendingOrder)
-        self.setCurrentCountry(self.current_country)
+        self.__update_dropdown_items()
 
     def isFlagIconsEnabled(self) -> bool:
         return self.flag_icons_enabled
 
     def setFlagIconsEnabled(self, enabled: bool):
         self.flag_icons_enabled = enabled
+        self.__update_dropdown_items()
+
+    def getFilter(self) -> FilterType | None:
+        return self.filter
+
+    def setFilter(self, filter: FilterType | None):
+        self.filter = filter
+        self.__update_dropdown_items()
+
+    def getFilteredCountries(self) -> set[str]:
+        return self.filtered_countries
+
+    def setFilteredCountries(self, filtered_countries: set[str]):
+        self.filtered_countries = filtered_countries
+        self.__update_dropdown_items()
+
+    def __update_dropdown_items(self):
         self.clear()
 
         for country_code, country_name in self.countries.items():
+            if self.filter == FilterType.BLACKLIST and country_code in self.filtered_countries:
+                continue
+            if self.filter == FilterType.WHITELIST and country_code not in self.filtered_countries:
+                continue
+
             if self.flag_icons_enabled:
                 self.addItem(
                     QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
