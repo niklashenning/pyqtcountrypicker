@@ -1,12 +1,15 @@
 from qtpy.QtWidgets import QWidget, QComboBox
 from qtpy.QtGui import QIcon
-from qtpy.QtCore import Qt
+from qtpy.QtCore import Qt, Signal
 from .countries import countries
 from .enums import FilterType
 from .os_utils import OSUtils
 
 
 class CountryPicker(QComboBox):
+
+    # Signal
+    countryChanged = Signal(str)
 
     def __init__(self, parent: QWidget = None):
         """Create a new CountryPicker instance
@@ -22,12 +25,11 @@ class CountryPicker(QComboBox):
         self.filtered_countries = set()
 
         self.current_country = next(iter(self.countries.keys()))
+        self.blocking_signals = False
 
-        for country_code, country_name in self.countries.items():
-            self.addItem(
-                QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
-                country_name
-            )
+        self.__update_dropdown_items()
+
+        self.currentTextChanged.connect(self.__current_text_changed)
 
     def getCurrentCountry(self) -> str:
         return self.current_country
@@ -79,6 +81,7 @@ class CountryPicker(QComboBox):
         self.__update_dropdown_items()
 
     def __update_dropdown_items(self):
+        self.blocking_signals = True
         self.clear()
 
         for country_code, country_name in self.countries.items():
@@ -90,10 +93,16 @@ class CountryPicker(QComboBox):
             if self.flag_icons_enabled:
                 self.addItem(
                     QIcon(OSUtils.get_current_directory() + '/flags/' + country_code + '.png'),
-                    country_name
+                    country_name, userData=country_code
                 )
             else:
-                self.addItem(country_name)
+                self.addItem(country_name, userData=country_code)
 
         self.model().sort(self.modelColumn(), Qt.SortOrder.AscendingOrder)
         self.setCurrentCountry(self.current_country)
+        self.blocking_signals = False
+
+    def __current_text_changed(self, text: str):
+        if not self.blocking_signals:
+            self.current_country = self.currentData()
+            self.countryChanged.emit(self.current_country)
