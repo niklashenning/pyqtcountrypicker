@@ -35,6 +35,10 @@ class CountryPicker(QComboBox):
         return self.current_country
 
     def setCurrentCountry(self, country_code: str):
+        country_code = country_code.lower()
+        if country_code not in self.countries:
+            return
+
         self.current_country = country_code
         self.setCurrentIndex(self.findText(self.countries[country_code]))
 
@@ -42,6 +46,10 @@ class CountryPicker(QComboBox):
         return self.countries[country_code]
 
     def setCountryName(self, country_code: str, country_name: str):
+        country_code = country_code.lower()
+        if country_code not in self.countries:
+            return
+
         item_index = self.findText(self.countries[country_code])
         self.setItemText(item_index, country_name)
         self.model().sort(self.modelColumn(), Qt.SortOrder.AscendingOrder)
@@ -52,6 +60,9 @@ class CountryPicker(QComboBox):
 
     def setCountryNames(self, country_names: dict[str, str]):
         for country_code, country_name in country_names.items():
+            country_code = country_code.lower()
+            if country_code not in self.countries:
+                continue
             self.countries[country_code] = country_name
         self.__update_dropdown_items()
 
@@ -77,7 +88,7 @@ class CountryPicker(QComboBox):
         return self.filtered_countries
 
     def setFilteredCountries(self, filtered_countries: set[str]):
-        self.filtered_countries = filtered_countries
+        self.filtered_countries = {country_code.lower() for country_code in filtered_countries}
         self.__update_dropdown_items()
 
     def __update_dropdown_items(self):
