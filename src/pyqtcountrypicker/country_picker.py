@@ -2,7 +2,6 @@ from qtpy.QtWidgets import QWidget, QComboBox
 from qtpy.QtGui import QIcon
 from qtpy.QtCore import Qt, Signal
 from .countries import countries
-from .enums import FilterType
 from .os_utils import OSUtils
 
 
@@ -19,11 +18,10 @@ class CountryPicker(QComboBox):
 
         super(CountryPicker, self).__init__(parent)
 
+        self.__countries = set(countries.keys())
         self.__country_names = countries.copy()
         self.__country_flags = self.__get_default_country_flags()
-        self.__flag_icons_enabled = True
-        self.__filter = None
-        self.__filtered_countries = set()
+        self.__country_flags_enabled = True
 
         self.__current_country = next(iter(self.__country_names.keys()))
         self.__blocking_signals = False
@@ -73,11 +71,11 @@ class CountryPicker(QComboBox):
         self.__country_names = countries.copy()
         self.__update_dropdown_items()
 
-    def isFlagIconsEnabled(self) -> bool:
-        return self.__flag_icons_enabled
+    def isCountryFlagsEnabled(self) -> bool:
+        return self.__country_flags_enabled
 
-    def setFlagIconsEnabled(self, enabled: bool):
-        self.__flag_icons_enabled = enabled
+    def setCountryFlagsEnabled(self, enabled: bool):
+        self.__country_flags_enabled = enabled
         self.__update_dropdown_items()
 
     def getCountryFlag(self, country_code: str) -> QIcon:
@@ -108,18 +106,11 @@ class CountryPicker(QComboBox):
         self.__country_flags = self.__get_default_country_flags()
         self.__update_dropdown_items()
 
-    def getFilter(self) -> FilterType | None:
-        return self.__filter
+    def getCountries(self) -> list[str]:
+        return list(self.__countries)
 
-    def setFilter(self, filter: FilterType | None):
-        self.__filter = filter
-        self.__update_dropdown_items()
-
-    def getFilteredCountries(self) -> set[str]:
-        return self.__filtered_countries
-
-    def setFilteredCountries(self, filtered_countries: set[str]):
-        self.__filtered_countries = {country_code.lower() for country_code in filtered_countries}
+    def setCountries(self, countries: list[str]):
+        self.__countries = set(countries)
         self.__update_dropdown_items()
 
     def __update_dropdown_items(self):
@@ -127,12 +118,10 @@ class CountryPicker(QComboBox):
         self.clear()
 
         for country_code, country_name in self.__country_names.items():
-            if self.__filter == FilterType.BLACKLIST and country_code in self.__filtered_countries:
-                continue
-            if self.__filter == FilterType.WHITELIST and country_code not in self.__filtered_countries:
+            if country_code not in self.__countries:
                 continue
 
-            if self.__flag_icons_enabled:
+            if self.__country_flags_enabled:
                 self.addItem(self.__country_flags[country_code], country_name, userData=country_code)
             else:
                 self.addItem(country_name, userData=country_code)
