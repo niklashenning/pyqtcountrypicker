@@ -49,6 +49,9 @@ class CountryPicker(QComboBox):
         if country_code not in self.__country_names:
             return
 
+        if country_code not in self.__countries:
+            return
+
         self.__current_country = country_code
         self.setCurrentIndex(self.findText(self.__country_names[country_code]))
 
