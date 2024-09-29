@@ -1,8 +1,8 @@
+import os
 from qtpy.QtWidgets import QWidget, QComboBox
 from qtpy.QtGui import QIcon
 from qtpy.QtCore import Qt, Signal
 from .countries import countries
-from .os_utils import OSUtils
 
 
 class CountryPicker(QComboBox):
@@ -235,7 +235,8 @@ class CountryPicker(QComboBox):
         :return: default country flag dict
         """
 
+        current_dir = os.path.dirname(os.path.realpath(__file__))
         return {
-            country_code: QIcon(OSUtils.get_current_directory() + '/flags/{}.png'.format(country_code))
+            country_code: QIcon(current_dir + '/flags/{}.png'.format(country_code))
             for country_code in countries.keys()
         }
