@@ -75,7 +75,7 @@ country_picker.setCountryName('af', 'Islamic Emirate of Afghanistan')
 new_country_names = {
     'us': 'United States of America',
     'de': 'Federal Republic of Germany',
-    'uk': 'England'
+    'gb': 'England'
 }
 country_picker.setCountryNames(new_country_names)
 
@@ -94,7 +94,7 @@ country_picker.setCountryFlag('af', QIcon('af_new_flag.png'))
 new_country_flags = {
     'us': QIcon('us_alt.png'),
     'de': QIcon('de_alt.png'),
-    'uk': QIcon('uk_alt.png')
+    'gb': QIcon('gb_alt.png')
 }
 country_picker.setCountryFlags(new_country_flags)
 
