@@ -19,11 +19,12 @@ class CountryPicker(QComboBox):
         super(CountryPicker, self).__init__(parent)
 
         # Attributes
-        self.__countries = set(countries.keys())
+        self.__countries = list(countries.keys())
         self.__country_names = countries.copy()
         self.__country_flags = self.__get_default_country_flags()
         self.__country_flags_enabled = True
 
+        self.__countries_set = set(self.__countries)
         self.__current_country = next(iter(self.__country_names.keys()))
         self.__blocking_signals = False
 
@@ -188,7 +189,7 @@ class CountryPicker(QComboBox):
         :return: available countries
         """
 
-        return list(self.__countries)
+        return self.__countries
 
     def setCountries(self, countries: list[str]):
         """Set the available countries
@@ -196,7 +197,8 @@ class CountryPicker(QComboBox):
         :param countries: new available countries
         """
 
-        self.__countries = set(countries)
+        self.__countries = countries
+        self.__countries_set = set(self.__countries)
         self.__update_dropdown_items()
 
     def __update_dropdown_items(self):
@@ -207,7 +209,7 @@ class CountryPicker(QComboBox):
 
         # Add available countries
         for country_code, country_name in self.__country_names.items():
-            if country_code not in self.__countries:
+            if country_code not in self.__countries_set:
                 continue
 
             # Only add country flag icons if enabled
