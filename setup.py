@@ -13,7 +13,8 @@ setup(
     packages=find_namespace_packages(where='src'),
     package_dir={'': 'src'},
     package_data={
-        'pyqtcountrypicker.flags': ['*.png']
+        'pyqtcountrypicker.flags': ['*.png'],
+        'pyqtcountrypicker.hooks': ['*.py']
     },
     install_requires=[
         'QtPy>=2.4.1'
