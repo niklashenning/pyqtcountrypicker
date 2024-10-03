@@ -1,6 +1,10 @@
 # PyQt Country Picker
 
-[BADGES]
+[![PyPI](https://img.shields.io/badge/pypi-v1.0.0-blue)](https://pypi.org/project/pyqtcountrypicker/)
+[![Python](https://img.shields.io/badge/python-3.7+-blue)](https://github.com/niklashenning/pyqtcountrypicker)
+[![Build](https://img.shields.io/badge/build-passing-neon)](https://github.com/niklashenning/pyqtcountrypicker)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-green)](https://github.com/niklashenning/pyqtcountrypicker)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/niklashenning/pyqtcountrypicker/blob/master/LICENSE)
 
 A simply, yet highly customizable country picker widget for PyQt and PySide
 
