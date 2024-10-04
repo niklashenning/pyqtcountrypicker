@@ -8,7 +8,7 @@
 
 A simply, yet highly customizable country picker widget for PyQt and PySide
 
-[GIF]
+![pyqtcountrypicker](https://github.com/user-attachments/assets/3d3ed4d4-c593-4f2a-a170-89715a3714e1)
 
 
 ## Features
@@ -37,15 +37,17 @@ class Window(QMainWindow):
     def __init__(self):
         super().__init__(parent=None)
         
-        # Init country picker
+        # Create country picker
         self.country_picker = CountryPicker(self)
 ```
 
 
 To get and set the currently selected country, you can use the `getCurrentCountry()` and `setCurrentCountry()` methods:
 ```python
+# Set current country
 country_picker.setCurrentCountry('us')
 
+# Get current country
 selected_country = country_picker.getCurrentCountry()  # 'us'
 ```
 
