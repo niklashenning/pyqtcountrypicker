@@ -354,6 +354,8 @@ country_picker.setCountryFlagsEnabled(False)  # Default: True
 | Zambia                         | zm           | <img src="src/pyqtcountrypicker/flags/zm.png" width="20px">    |
 | Zimbabwe                       | zw           | <img src="src/pyqtcountrypicker/flags/zw.png" width="20px">    |
 
+The flag icons used are modified versions of the icons available in [this repository](https://github.com/lipis/flag-icons).
+
 
 ## License
 This software is licensed under the [MIT license](https://github.com/niklashenning/pyqtcountrypicker/blob/master/LICENSE).
