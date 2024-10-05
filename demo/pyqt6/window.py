@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QFormLayout
 from PyQt6.QtCore import Qt
-from src.pyqtcountrypicker import CountryPicker
+from pyqtcountrypicker import CountryPicker
 
 
 class Window(QMainWindow):
