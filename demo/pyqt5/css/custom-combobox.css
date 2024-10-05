@@ -1,0 +1,55 @@
+QComboBox {
+    color: #333;
+    background: #E6E6E6;
+    border: 1px solid #ADADAD;
+    border-radius: 3px;
+    padding: 0px 10px;
+}
+
+QComboBox:hover {
+    background: #DEDEDE;
+    border: 1px solid #b0b0b0;
+}
+
+QComboBox::drop-down {
+    border: none;
+}
+
+QComboBox::drop-down {
+    width: 20px;
+}
+
+QComboBox::down-arrow {
+    image: url(images/arrow-down.png);
+}
+
+QComboBox::down-arrow:on {
+    image: url(images/arrow-up.png);
+}
+
+QAbstractItemView {
+    border: 1px solid #ADADAD;
+}
+
+QComboBox QScrollBar {
+    width: 5px;
+    background: #CCC;
+}
+
+QScrollBar::handle:vertical {
+    background: #999;
+}
+
+QScrollBar::add-line:vertical {
+    background: none;
+    height: 0px;
+}
+
+QScrollBar::sub-line:vertical {
+    background: none;
+    height: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
