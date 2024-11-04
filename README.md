@@ -1,19 +1,19 @@
 # PyQt Country Picker
 
-[![PyPI](https://img.shields.io/badge/pypi-v1.0.0-blue)](https://pypi.org/project/pyqtcountrypicker/)
+[![PyPI](https://img.shields.io/badge/pypi-v1.0.1-blue)](https://pypi.org/project/pyqtcountrypicker/)
 [![Python](https://img.shields.io/badge/python-3.7+-blue)](https://github.com/niklashenning/pyqtcountrypicker)
 [![Build](https://img.shields.io/badge/build-passing-neon)](https://github.com/niklashenning/pyqtcountrypicker)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-green)](https://github.com/niklashenning/pyqtcountrypicker)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/niklashenning/pyqtcountrypicker/blob/master/LICENSE)
 
-A simply, yet highly customizable country picker widget for PyQt and PySide
+A simple, yet highly customizable country picker widget for PyQt and PySide
 
 ![pyqtcountrypicker](https://github.com/user-attachments/assets/3d3ed4d4-c593-4f2a-a170-89715a3714e1)
 
 
 ## Features
 - Supports 235 countries and territories
-- Supports only showing certain countries
+- Supports only allowing certain countries
 - Fully customizable country names and flags
 - Works with `PyQt5`, `PyQt6`, `PySide2`, and `PySide6`
 
