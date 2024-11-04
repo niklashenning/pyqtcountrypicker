@@ -6,7 +6,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='pyqtcountrypicker',
-    version='1.0.0',
+    version='1.0.1',
     author='Niklas Henning',
     author_email='business@niklashenning.com',
     license='MIT',
@@ -20,10 +20,10 @@ setup(
         'QtPy>=2.4.1'
     ],
     python_requires='>=3.7',
-    description='A simply, yet highly customizable country picker widget for PyQt and PySide',
+    description='A simple, yet highly customizable country picker widget for PyQt and PySide',
     long_description=readme,
     long_description_content_type='text/markdown',
-    url='https://github.com/niklashenning/pyqttoast',
+    url='https://github.com/niklashenning/pyqtcountrypicker',
     keywords=['python', 'pyqt', 'pyside', 'qt', 'country-picker'],
     classifiers=[
         'Programming Language :: Python :: 3',
